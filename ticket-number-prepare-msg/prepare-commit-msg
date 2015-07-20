@@ -1,0 +1,11 @@
+#!/bin/sh
+ 
+if [ x = x${2} ]; then
+   BRANCH_NAME=$(git symbolic-ref --short HEAD)
+   STORY_NUMBER=$(echo $BRANCH_NAME | sed -n 's/\([0-9]\)_.*/\1/p')
+
+   echo $STORY_NUMBER
+   if [ x != x${STORY_NUMBER} ]; then
+      sed -i.back "1s/^/\n\n[#$STORY_NUMBER]/" "$1"
+   fi
+fi
